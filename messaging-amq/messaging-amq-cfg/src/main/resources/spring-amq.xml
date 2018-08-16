@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="jmsConnectionFactoryExtend"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<property name="brokerURL" value="${amq.brokerURL}" />
+				<property name="userName" value="${amq.userName}" />
+				<property name="password" value="${amq.password}" />
+			</bean>
+		</property>
+		<property name="sessionCacheSize" value="${amq.sessionCacheSize}" />
+	</bean>
+
+	<!-- converter -->
+	<bean id="jmsMessageConverter"
+		class="org.springframework.jms.support.converter.SimpleMessageConverter" />
+
+	<!-- queue -->
+	<bean id="jmsQueueTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg ref="jmsConnectionFactoryExtend" />
+		<property name="pubSubDomain" value="false" />
+		<property name="messageConverter" ref="jmsMessageConverter" />
+	</bean>
+
+	<!-- listener -->
+	<bean id="jmsListenerContainerFactory"
+		class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+		<property name="connectionFactory" ref="jmsConnectionFactoryExtend" />
+	</bean>
+
+	<!-- template -->
+	<bean id="jmsMessagingTemplate" class="org.springframework.jms.core.JmsMessagingTemplate">
+		<property name="jmsTemplate" ref="jmsQueueTemplate" />
+	</bean>
+
+</beans>
