@@ -27,6 +27,15 @@
             <artifactId>rocketmq-common</artifactId>
             <version>${rocketmq.version}</version>
         </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.foundationdb/fdb-java -->
+        <dependency>
+            <groupId>org.foundationdb</groupId>
+            <artifactId>fdb-java</artifactId>
+            <version>5.2.5</version>
+        </dependency>
+
     </dependencies>
 
     <modules>
