@@ -32,6 +32,7 @@
     <modules>
         <module>messaging-rocketmq-producer</module>
         <module>messaging-rocketmq-consumer</module>
+        <module>messaging-rocketmq-test</module>
     </modules>
 
 
