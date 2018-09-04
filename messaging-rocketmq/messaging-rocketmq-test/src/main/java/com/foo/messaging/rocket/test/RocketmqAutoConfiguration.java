@@ -13,7 +13,6 @@ import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
@@ -126,7 +125,7 @@ public class RocketmqAutoConfiguration {
                     context.setAutoCommit(true);
                     msgs = filter(msgs);
                     if (msgs.size() == 0) return ConsumeOrderlyStatus.SUCCESS;
-                    this.publisher.publishEvent(new RocketmqEvent(msgs, consumer));
+                    this.publisher.publishEvent(new RocketMqEvent(msgs, consumer));
                 } catch (Exception e) {
                     e.printStackTrace();
                     return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
@@ -139,7 +138,7 @@ public class RocketmqAutoConfiguration {
                 try {
                     msgs = filter(msgs);
                     if (msgs.size() == 0) return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-                    this.publisher.publishEvent(new RocketmqEvent(msgs, consumer));
+                    this.publisher.publishEvent(new RocketMqEvent(msgs, consumer));
                 } catch (Exception e) {
                     e.printStackTrace();
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;

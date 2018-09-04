@@ -7,13 +7,13 @@ import org.springframework.context.ApplicationEvent;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-public class RocketmqEvent extends ApplicationEvent {
+public class RocketMqEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = -4468405250074063206L;
     private DefaultMQPushConsumer consumer;
     private List<MessageExt> msgs;
 
-    public RocketmqEvent(List<MessageExt> msgs, DefaultMQPushConsumer consumer) throws Exception {
+    public RocketMqEvent(List<MessageExt> msgs, DefaultMQPushConsumer consumer) throws Exception {
         super(msgs);
         this.consumer = consumer;
         this.setMsgs(msgs);
